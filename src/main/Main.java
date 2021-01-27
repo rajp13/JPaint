@@ -22,18 +22,17 @@ public class Main {
         ApplicationState appState = new ApplicationState(uiModule);
         IJPaintController controller = new JPaintController(uiModule, appState);
         controller.setup();
-
-        paintCanvas.addMouseListener(new PaintMouseHandler());
-
-        // For example purposes only; remove all lines below from your final project.
-
-
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        paintCanvas.addMouseListener(new PaintMouseHandler(paintCanvas));
+        // For example purposes only; remove all lines below from your final project.
+
+
+        /*
         // Filled in rectangle
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
         graphics2d.setColor(Color.GREEN);
@@ -49,7 +48,7 @@ public class Main {
         graphics2d.setStroke(stroke);
         graphics2d.setColor(Color.BLACK);
         graphics2d.drawRect(7, 8, 210, 410);
-
+        */
 
     }
 }
