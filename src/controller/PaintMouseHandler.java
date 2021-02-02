@@ -2,25 +2,27 @@ package controller;
 
 import view.interfaces.PaintCanvasBase;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
-public class PaintMouseHandler extends MouseAdapter implements Shape {
-    private Point startingPoint;
-    private Point endPoint;
+public class PaintMouseHandler extends MouseAdapter {
+
     private PaintCanvasBase paintCanvasBase;
-    ArrayList shapeList = new ArrayList<Shape>();
+    private ShapeInfo shapeInfo;
+    private final ShapeList shapeList;
 
-    public PaintMouseHandler(PaintCanvasBase paintCanvasBase) {
+    public PaintMouseHandler(PaintCanvasBase paintCanvasBase,ShapeInfo shapeInfo, ShapeList shapeList) {
         this.paintCanvasBase = paintCanvasBase;
+        this.shapeInfo = shapeInfo;
+        this.shapeList = shapeList;
     }
 
 
     @Override
     public void mousePressed(MouseEvent e) {
-        startingPoint = new Point(e.getX(),e.getY());
+        Point startingPoint = new Point(e.getX(),e.getY());
+        System.out.println("Starting Point " + startingPoint.toString());
+        shapeInfo.setStartingPoint(startingPoint);
     }
 
     /*
@@ -30,18 +32,10 @@ public class PaintMouseHandler extends MouseAdapter implements Shape {
     @Override
     public void mouseReleased(MouseEvent e) {
         // gets the end Points
-        endPoint = new Point(e.getX(),e.getY());
-        draw(paintCanvasBase);
-    }
-
-
-    @Override
-    public void draw(PaintCanvasBase paintCanvasBase) {
-        int width = Math.abs(endPoint.getX()-startingPoint.getX());
-        int height = Math.abs(endPoint.getY()-startingPoint.getY());
-        Graphics2D graphics2D = paintCanvasBase.getGraphics2D();
-        graphics2D.setColor(Color.blue);
-        graphics2D.fillRect(startingPoint.getX(),startingPoint.getY(),width,height);
+        Point endPoint = new Point(e.getX(),e.getY());
+        shapeInfo.setEndPoint(endPoint);
+        Command createShape = new CreateShapeCommand(paintCanvasBase,shapeInfo,shapeList);
+        createShape.execute();
     }
 
 

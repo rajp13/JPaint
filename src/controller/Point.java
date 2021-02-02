@@ -38,10 +38,4 @@ public class Point {
     public String toString(){
         return this.x + " " + this.y;
     }
-
-
-    public void setPoint(java.awt.Point point) {
-        this.x = point.x;
-        this.y = point.y;
-    }
 }

@@ -1,18 +1,13 @@
 package main;
 
-import controller.IJPaintController;
-import controller.JPaintController;
-import controller.PaintMouseHandler;
-import model.ShapeType;
+import controller.*;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
 import view.gui.PaintCanvas;
 import view.interfaces.IGuiWindow;
-import view.interfaces.PaintCanvasBase;
 import view.interfaces.IUiModule;
-
-import java.awt.*;
+import view.interfaces.PaintCanvasBase;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,10 +22,12 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        paintCanvas.addMouseListener(new PaintMouseHandler(paintCanvas));
+        ShapeInfo shapeInfo = new ShapeInfo();
+        ShapeList shapeLst = new ShapeList();
+        paintCanvas.addMouseListener(new PaintMouseHandler(paintCanvas,shapeInfo,shapeLst));
         // For example purposes only; remove all lines below from your final project.
 
+        //controller.setup();
 
         /*
         // Filled in rectangle
