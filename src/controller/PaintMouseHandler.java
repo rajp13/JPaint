@@ -1,5 +1,8 @@
 package controller;
 
+import model.ShapeInfo;
+import model.ShapeList;
+import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.event.MouseAdapter;
@@ -10,9 +13,11 @@ public class PaintMouseHandler extends MouseAdapter {
     private PaintCanvasBase paintCanvasBase;
     private ShapeInfo shapeInfo;
     private final ShapeList shapeList;
+    private ApplicationState appState;
 
-    public PaintMouseHandler(PaintCanvasBase paintCanvasBase,ShapeInfo shapeInfo, ShapeList shapeList) {
+    public PaintMouseHandler(PaintCanvasBase paintCanvasBase, ApplicationState appState,ShapeInfo shapeInfo, ShapeList shapeList) {
         this.paintCanvasBase = paintCanvasBase;
+        this.appState = appState;
         this.shapeInfo = shapeInfo;
         this.shapeList = shapeList;
     }
@@ -34,7 +39,9 @@ public class PaintMouseHandler extends MouseAdapter {
         // gets the end Points
         Point endPoint = new Point(e.getX(),e.getY());
         shapeInfo.setEndPoint(endPoint);
-        Command createShape = new CreateShapeCommand(paintCanvasBase,shapeInfo,shapeList);
+        System.out.println("Ending Point " + endPoint.toString());
+        shapeInfo.setApplicationState(appState);
+        Command createShape = new CreateShapeCommand(paintCanvasBase,appState,shapeInfo,shapeList);
         createShape.execute();
     }
 

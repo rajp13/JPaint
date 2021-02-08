@@ -1,5 +1,9 @@
 package controller;
 
+import model.ShapeFactory;
+import model.ShapeInfo;
+import model.ShapeList;
+import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 public class CreateShapeCommand implements Command, IUndoable {
@@ -8,9 +12,11 @@ public class CreateShapeCommand implements Command, IUndoable {
     private ShapeInfo shapeInfo;
     private IShape shape;
     private final ShapeList shapeLst;
+    private ApplicationState appState;
 
-    public CreateShapeCommand (PaintCanvasBase paintCanvasBase,ShapeInfo shapeInfo, ShapeList shapeList) {
+    public CreateShapeCommand (PaintCanvasBase paintCanvasBase, ApplicationState appState,ShapeInfo shapeInfo, ShapeList shapeList) {
         this.paintCanvasBase = paintCanvasBase;
+        this.appState = appState;
         this.shapeInfo = shapeInfo;
         this.shapeLst = shapeList;
     }
@@ -19,7 +25,7 @@ public class CreateShapeCommand implements Command, IUndoable {
     public void execute() {
         System.out.println("Create Shape " + shapeInfo.toString());
         ShapeFactory shapeFactory = new ShapeFactory();
-        shape = shapeFactory.create(paintCanvasBase,shapeInfo);
+        shape = shapeFactory.create(shapeInfo);
         // Add on the shape list
         shapeLst.setPaintCanvasBase(paintCanvasBase);
         shapeLst.addShape(shape);

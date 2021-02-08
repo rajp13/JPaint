@@ -1,6 +1,10 @@
 package main;
 
-import controller.*;
+import controller.IJPaintController;
+import controller.JPaintController;
+import controller.PaintMouseHandler;
+import model.ShapeInfo;
+import model.ShapeList;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -16,7 +20,7 @@ public class Main {
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
         IJPaintController controller = new JPaintController(uiModule, appState);
-        controller.setup();
+//        controller.setup();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -24,10 +28,14 @@ public class Main {
         }
         ShapeInfo shapeInfo = new ShapeInfo();
         ShapeList shapeLst = new ShapeList();
-        paintCanvas.addMouseListener(new PaintMouseHandler(paintCanvas,shapeInfo,shapeLst));
+        paintCanvas.addMouseListener(new PaintMouseHandler(paintCanvas, appState,shapeInfo,shapeLst));
         // For example purposes only; remove all lines below from your final project.
 
-        //controller.setup();
+
+
+
+
+        controller.setup();
 
         /*
         // Filled in rectangle
