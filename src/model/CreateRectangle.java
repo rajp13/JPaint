@@ -20,6 +20,8 @@ public class CreateRectangle implements IShape {
     private Color secondaryColor;
     private ShapeShadingType shapeShadingType;
     private EnumMap<ShapeColor, Color> map;
+    private int rectWidth;
+    private int rectHeight;
 
 
     public CreateRectangle(ShapeInfo shapeInfo) {
@@ -33,6 +35,8 @@ public class CreateRectangle implements IShape {
         activeSecondaryColor = appState.getActiveSecondaryColor();
         secondaryColor = map.get(activeSecondaryColor);
         shapeShadingType = appState.getActiveShapeShadingType();
+        rectWidth = Math.abs(startingPoint.getX() - endPoint.getX());
+        rectHeight = Math.abs(startingPoint.getY() - endPoint.getY());
     }
 
 
@@ -59,6 +63,29 @@ public class CreateRectangle implements IShape {
             graphics2d.setColor(secondaryColor);
             graphics2d.drawRect(startingPoint.getX(), startingPoint.getY(), width, height);
         }
+    }
+    /*
+            https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+		   if (rect1.x < rect2.x + rect2.width &&
+               rect1.x + rect1.width > rect2.x &&
+               rect1.y < rect2.y + rect2.height &&
+               rect1.y + rect1.height > rect2.y) {
+                // collision detected!
+                rect1.x < rect2.x + rect2.width &&
+                rect1.x + rect1.width > rect2.x &&
+                 rect1.y < rect2.y + rect2.height &&
+                  rect1.y + rect1.height > rect2.y
+            }
+     */
+    @Override
+    public boolean checkCollisions(Point otherStartingPoint, Point otherEndingPoint) {
+        int width = Math.abs(otherStartingPoint.getX() - otherEndingPoint.getY());
+        int height = Math.abs(otherStartingPoint.getY() - otherEndingPoint.getY());
+        if(startingPoint.getX() < otherStartingPoint.getX() + width && startingPoint.getX() + rectWidth > otherStartingPoint.getX() && startingPoint.getY() < otherStartingPoint.getY() + height &&
+        startingPoint.getY() + rectHeight > otherStartingPoint.getY()) {
+            return true;
+        }
+        return false;
     }
 
 }

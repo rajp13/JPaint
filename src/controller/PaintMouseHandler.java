@@ -1,5 +1,6 @@
 package controller;
 
+import model.MouseMode;
 import model.ShapeInfo;
 import model.ShapeList;
 import model.persistence.ApplicationState;
@@ -14,6 +15,7 @@ public class PaintMouseHandler extends MouseAdapter {
     private ShapeInfo shapeInfo;
     private final ShapeList shapeList;
     private ApplicationState appState;
+    private ShapeList selectedShapeList;
 
     public PaintMouseHandler(PaintCanvasBase paintCanvasBase, ApplicationState appState,ShapeInfo shapeInfo, ShapeList shapeList) {
         this.paintCanvasBase = paintCanvasBase;
@@ -41,8 +43,17 @@ public class PaintMouseHandler extends MouseAdapter {
         shapeInfo.setEndPoint(endPoint);
         System.out.println("Ending Point " + endPoint.toString());
         shapeInfo.setApplicationState(appState);
-        Command createShape = new CreateShapeCommand(paintCanvasBase,appState,shapeInfo,shapeList);
-        createShape.execute();
+        MouseMode mouseMode = appState.getActiveMouseMode();
+        if(mouseMode.equals(MouseMode.DRAW)) {
+            Command createShape = new CreateShapeCommand(paintCanvasBase, appState, shapeInfo, shapeList);
+            createShape.execute();
+        } else if(mouseMode.equals(MouseMode.SELECT)) {
+            System.out.println("Mouse mode is on SELECT");
+            //instantiate the selected shape list in the mouse handler
+            //selectedShapeList = new ShapeList();
+            Command selectShapeCommand = new SelectShapeCommand(paintCanvasBase,appState,shapeInfo,shapeList);
+            selectShapeCommand.execute();
+        }
     }
 
 

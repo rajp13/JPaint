@@ -80,4 +80,17 @@ public class CreateTriangle implements IShape {
             graphics2D.drawPolygon(xPoints,yPoints,3);
         }
     }
+
+    /*
+
+      
+     */
+
+    @Override
+    public boolean checkCollisions(Point otherStartingPoint, Point otherEndingPoint) {
+        if(otherStartingPoint.getX() < endPoint.getX() && otherEndingPoint.getX() > startingPoint.getX() && otherEndingPoint.getY() > startingPoint.getY() && otherStartingPoint.getY() < endPoint.getY()) {
+            return true;
+        };
+        return false;
+    }
 }

@@ -9,11 +9,13 @@ import java.util.ArrayList;
 public class ShapeList {
 
     private final ArrayList<IShape> shapeLst;
+    private ArrayList<IShape> selectedShapeLst;
     private int size;
     private PaintCanvasBase paintCanvasBase;
 
     public ShapeList() {
         shapeLst = new ArrayList<>();
+        selectedShapeLst = new ArrayList<>();
     }
 
 
@@ -29,12 +31,29 @@ public class ShapeList {
         drawAllShapes();
     }
 
+    public void addSelectShape(IShape shape) {
+        selectedShapeLst.add(shape);
+    }
+
+
+    public void removeSelectShape(IShape shape) {
+        selectedShapeLst.remove(shape);
+    }
+
+    public void clearSelectShapeList() {
+        selectedShapeLst.clear();
+    }
+
     public int getSize() {
         return size;
     }
 
     public ArrayList<IShape> getShapeLst() {
         return shapeLst;
+    }
+
+    public ArrayList<IShape> getSelectedShapeLst() {
+        return selectedShapeLst;
     }
 
     public PaintCanvasBase getPaintCanvasBase() {

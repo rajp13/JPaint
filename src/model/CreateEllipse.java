@@ -12,7 +12,7 @@ public class CreateEllipse implements IShape {
 
     private ShapeInfo shapeInfo;
     private Point startingPoint;
-    private Point endingPoint;
+    private Point endPoint;
     private ApplicationState appState;
     private ShapeColor activePrimaryColor;
     private Color primaryColor;
@@ -20,12 +20,14 @@ public class CreateEllipse implements IShape {
     private Color secondaryColor;
     private ShapeShadingType shapeShadingType;
     private EnumMap<ShapeColor, Color> map;
+    private int ellipseWidth;
+    private int ellipseHeight;
 
 
     public CreateEllipse(ShapeInfo shapeInfo) {
         this.shapeInfo = shapeInfo;
         startingPoint = shapeInfo.getStartingPoint();
-        endingPoint = shapeInfo.getEndPoint();
+        endPoint = shapeInfo.getEndPoint();
         appState = shapeInfo.getApplicationState();
         activePrimaryColor = appState.getActivePrimaryColor();
         map = shapeInfo.getColorMap();
@@ -34,6 +36,8 @@ public class CreateEllipse implements IShape {
         activeSecondaryColor = appState.getActiveSecondaryColor();
         secondaryColor = map.get(activeSecondaryColor);
         shapeShadingType = appState.getActiveShapeShadingType();
+        ellipseWidth = Math.abs(startingPoint.getX() - endPoint.getX());
+        ellipseHeight = Math.abs(startingPoint.getY() - endPoint.getY());
     }
 
 
@@ -43,8 +47,8 @@ public class CreateEllipse implements IShape {
         System.out.println("Drawing an Ellipse now");
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
         graphics2d.setColor(primaryColor);
-        int height = Math.abs(startingPoint.getY() - endingPoint.getY());
-        int width = Math.abs(startingPoint.getX() - endingPoint.getX());
+        int height = Math.abs(startingPoint.getY() - endPoint.getY());
+        int width = Math.abs(startingPoint.getX() - endPoint.getX());
         if(shapeShadingType.equals(ShapeShadingType.FILLED_IN)) {
             System.out.println("Drawing Filled Ellipse");
             graphics2d.fillOval(startingPoint.getX(), startingPoint.getY(), width, height);
@@ -59,5 +63,16 @@ public class CreateEllipse implements IShape {
             graphics2d.setColor(secondaryColor);
             graphics2d.drawOval(startingPoint.getX(), startingPoint.getY(), width, height);
         }
+    }
+
+    @Override
+    public boolean checkCollisions(Point otherStartingPoint, Point otherEndingPoint) {
+        int width = Math.abs(otherStartingPoint.getX() - otherEndingPoint.getY());
+        int height = Math.abs(otherStartingPoint.getY() - otherEndingPoint.getY());
+        if(startingPoint.getX() < otherStartingPoint.getX() + width && startingPoint.getX() + ellipseWidth > otherStartingPoint.getX() && startingPoint.getY() < otherStartingPoint.getY() + height &&
+                startingPoint.getY() + ellipseHeight > otherStartingPoint.getY()) {
+            return true;
+        }
+        return false;
     }
 }
