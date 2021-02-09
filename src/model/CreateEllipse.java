@@ -1,6 +1,6 @@
 package model;
 
-import controller.IShape;
+import model.interfaces.IShape;
 import controller.Point;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
@@ -74,5 +74,10 @@ public class CreateEllipse implements IShape {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void move(int deltaX, int deltaY) {
+
     }
 }

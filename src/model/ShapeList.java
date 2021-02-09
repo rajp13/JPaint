@@ -1,6 +1,6 @@
 package model;
 
-import controller.IShape;
+import model.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;

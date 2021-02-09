@@ -53,6 +53,10 @@ public class PaintMouseHandler extends MouseAdapter {
             //selectedShapeList = new ShapeList();
             Command selectShapeCommand = new SelectShapeCommand(paintCanvasBase,appState,shapeInfo,shapeList);
             selectShapeCommand.execute();
+        } else {
+            System.out.println("Mouse mode is on MOVE");
+            Command moveShapeCommand = new MoveShapeCommand(shapeInfo,shapeList);
+            moveShapeCommand.execute();
         }
     }
 

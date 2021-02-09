@@ -1,6 +1,6 @@
 package model;
 
-import controller.IShape;
+import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 
 public class ShapeFactory {

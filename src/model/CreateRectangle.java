@@ -1,6 +1,6 @@
 package model;
 
-import controller.IShape;
+import model.interfaces.IShape;
 import controller.Point;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
@@ -87,5 +87,12 @@ public class CreateRectangle implements IShape {
         }
         return false;
     }
+
+    @Override
+    public void move(int deltaX, int deltaY) {
+        startingPoint = new Point(startingPoint.getX()+deltaX, startingPoint.getY()+deltaY);
+        endPoint = new Point(endPoint.getX()+deltaX, endPoint.getY()+deltaY);
+    }
+
 
 }
