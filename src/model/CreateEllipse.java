@@ -65,6 +65,10 @@ public class CreateEllipse implements IShape {
         }
     }
 
+    /*
+        https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    */
+
     @Override
     public boolean checkCollisions(Point otherStartingPoint, Point otherEndingPoint) {
         int width = Math.abs(otherStartingPoint.getX() - otherEndingPoint.getY());
@@ -78,6 +82,7 @@ public class CreateEllipse implements IShape {
 
     @Override
     public void move(int deltaX, int deltaY) {
-
+        startingPoint = new Point(startingPoint.getX()+deltaX, startingPoint.getY()+deltaY);
+        endPoint = new Point(endPoint.getX()+deltaX, endPoint.getY()+deltaY);
     }
 }

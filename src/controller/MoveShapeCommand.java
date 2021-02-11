@@ -6,7 +6,7 @@ import model.interfaces.IShape;
 
 import java.util.ArrayList;
 
-public class MoveShapeCommand implements Command{
+public class MoveShapeCommand implements Command, IUndoable {
 
     private ShapeList shapeLst;
     private int deltaX;
@@ -14,6 +14,8 @@ public class MoveShapeCommand implements Command{
     private ShapeInfo shapeInfo;
     private Point startingPoint;
     private Point endingPoint;
+    private ArrayList<IShape> selectedShapeList;
+    private ArrayList<IShape> activeMoveShape = new ArrayList<>();
 
 
     public MoveShapeCommand(ShapeInfo shapeInfo, ShapeList shapeLst) {
@@ -21,17 +23,48 @@ public class MoveShapeCommand implements Command{
         this.shapeLst = shapeLst;
         startingPoint = shapeInfo.getStartingPoint();
         endingPoint = shapeInfo.getEndPoint();
+        // Make sure deltaX and deltaY is negative
         deltaX = endingPoint.getX() - startingPoint.getX();
         deltaY = endingPoint.getY() - startingPoint.getY();
+        selectedShapeList = shapeLst.getSelectedShapeLst();
     }
 
+    /*
+        You have to call the shape drawer after you do the move
+     */
 
     @Override
     public void execute() {
-        ArrayList<IShape> selectedShapeList = shapeLst.getSelectedShapeLst();
+        //ArrayList<IShape> selectedShapeList = shapeLst.getSelectedShapeLst();
         for(IShape shape: selectedShapeList) {
+            System.out.println("Moving Shape Now");
             shape.move(deltaX,deltaY);
+            activeMoveShape.add(shape);
+            shapeLst.drawAllShapes();
+        }
+        CommandHistory.add(this);
+    }
+
+    /*
+        If you select some shapes and you move the shapes, then you select some different shapes
+        and you undo the move, you want undo the shapes that were moved regradless if they are selected or not
+        shapelist should maintain a reference to those shapes
+     */
+    @Override
+    public void undo() {
+        int undoDeltaX = deltaX * -1;
+        int undoDeltaY = deltaY * -1;
+        for(IShape shape: activeMoveShape) {
+            shape.move(undoDeltaX,undoDeltaY);
+            shapeLst.drawAllShapes();
         }
     }
 
+    @Override
+    public void redo() {
+        for(IShape shape: activeMoveShape) {
+            shape.move(deltaX,deltaY);
+            shapeLst.drawAllShapes();
+        }
+    }
 }

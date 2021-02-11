@@ -21,11 +21,12 @@ public class CreateTriangle implements IShape {
     private Color secondaryColor;
     private int[] xPoints = new int[3];
     private int[] yPoints = new int[3];
+    private int rectWidth;
+    private int rectHeight;
 
 
 
     public CreateTriangle(ShapeInfo shapeInfo) {
-//        this.paintCanvas = paintCanvas;
         this.shapeInfo = shapeInfo;
         startingPoint = shapeInfo.getStartingPoint();
         endPoint = shapeInfo.getEndPoint();
@@ -36,27 +37,19 @@ public class CreateTriangle implements IShape {
         activeSecondaryColor = appState.getActiveSecondaryColor();
         secondaryColor = colorMap.get(activeSecondaryColor);
         shapeShadingType = appState.getActiveShapeShadingType();
+
+        // set the x points in the array
         xPoints[0] = startingPoint.getX();
         xPoints[1] = endPoint.getX();
         xPoints[2] = startingPoint.getX();
+
+        // set the y points in the array
         yPoints[0] = startingPoint.getY();
         yPoints[1] = endPoint.getY();
         yPoints[2] = endPoint.getY();
+        rectWidth = Math.abs(startingPoint.getX() - endPoint.getX());
+        rectHeight = Math.abs(startingPoint.getY() - endPoint.getY());
     }
-
-    /*
-    public void setX() {
-        xPoints[0] = startingPoint.getX();
-        xPoints[1] = endPoint.getX();
-        xPoints[2] = startingPoint.getX();
-    }
-
-    public void setY() {
-        yPoints[0] = startingPoint.getY();
-        yPoints[1] = endPoint.getY();
-        yPoints[2] = endPoint.getY();
-    }
-    */
 
     @Override
     public void draw(PaintCanvasBase paintCanvasBase) {
@@ -82,21 +75,30 @@ public class CreateTriangle implements IShape {
     }
 
     /*
-
-      
-     */
+        https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    */
 
     @Override
     public boolean checkCollisions(Point otherStartingPoint, Point otherEndingPoint) {
-        if(otherStartingPoint.getX() < endPoint.getX() && otherEndingPoint.getX() > startingPoint.getX() && otherEndingPoint.getY() > startingPoint.getY() && otherStartingPoint.getY() < endPoint.getY()) {
+        int width = Math.abs(otherStartingPoint.getX() - otherEndingPoint.getY());
+        int height = Math.abs(otherStartingPoint.getY() - otherEndingPoint.getY());
+        if(startingPoint.getX() < otherStartingPoint.getX() + width && startingPoint.getX() + rectWidth > otherStartingPoint.getX() && startingPoint.getY() < otherStartingPoint.getY() + height &&
+                startingPoint.getY() + rectHeight > otherStartingPoint.getY()) {
             return true;
-        };
-        return false;
+        }
+      return false;
     }
 
     @Override
     public void move(int deltaX, int deltaY) {
-
+        startingPoint = new Point(startingPoint.getX()+deltaX, startingPoint.getY()+deltaY);
+        endPoint = new Point(endPoint.getX()+deltaX, endPoint.getY()+deltaY);
+        xPoints[0] = startingPoint.getX();
+        xPoints[1] = endPoint.getX();
+        xPoints[2] = startingPoint.getX();
+        yPoints[0] = startingPoint.getY();
+        yPoints[1] = endPoint.getY();
+        yPoints[2] = endPoint.getY();
     }
 
 }

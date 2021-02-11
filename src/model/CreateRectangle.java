@@ -81,7 +81,7 @@ public class CreateRectangle implements IShape {
     public boolean checkCollisions(Point otherStartingPoint, Point otherEndingPoint) {
         int width = Math.abs(otherStartingPoint.getX() - otherEndingPoint.getY());
         int height = Math.abs(otherStartingPoint.getY() - otherEndingPoint.getY());
-        if(startingPoint.getX() < otherStartingPoint.getX() + width && startingPoint.getX() + rectWidth > otherStartingPoint.getX() && startingPoint.getY() < otherStartingPoint.getY() + height &&
+        if(startingPoint.getX() < otherStartingPoint.getX() + width && (startingPoint.getX() + rectWidth > otherStartingPoint.getX()) && startingPoint.getY() < otherStartingPoint.getY() + height &&
         startingPoint.getY() + rectHeight > otherStartingPoint.getY()) {
             return true;
         }
