@@ -10,12 +10,14 @@ public class ShapeList {
 
     private final ArrayList<IShape> shapeLst;
     private ArrayList<IShape> selectedShapeLst;
+    private ArrayList<IShape> clipboard;
     private int size;
     private PaintCanvasBase paintCanvasBase;
 
     public ShapeList() {
         shapeLst = new ArrayList<>();
         selectedShapeLst = new ArrayList<>();
+        clipboard = new ArrayList<>();
     }
 
 
@@ -54,6 +56,10 @@ public class ShapeList {
 
     public ArrayList<IShape> getSelectedShapeLst() {
         return selectedShapeLst;
+    }
+
+    public ArrayList<IShape> getClipboard() {
+        return clipboard;
     }
 
     public PaintCanvasBase getPaintCanvasBase() {

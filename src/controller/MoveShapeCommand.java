@@ -48,7 +48,7 @@ public class MoveShapeCommand implements Command, IUndoable {
     /*
         If you select some shapes and you move the shapes, then you select some different shapes
         and you undo the move, you want undo the shapes that were moved regradless if they are selected or not
-        shapelist should maintain a reference to those shapes
+        shape list should maintain a reference to those shapes
      */
     @Override
     public void undo() {

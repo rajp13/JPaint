@@ -1,5 +1,6 @@
 package controller;
 
+import model.ShapeList;
 import model.interfaces.IApplicationState;
 import view.EventName;
 import view.interfaces.IUiModule;
@@ -7,10 +8,12 @@ import view.interfaces.IUiModule;
 public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
+    private ShapeList shapeLst;
 
-    public JPaintController(IUiModule uiModule, IApplicationState applicationState) {
+    public JPaintController(IUiModule uiModule, IApplicationState applicationState,ShapeList shapeLst) {
         this.uiModule = uiModule;
         this.applicationState = applicationState;
+        this.shapeLst = shapeLst;
     }
 
     @Override
@@ -26,5 +29,6 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.CHOOSE_MOUSE_MODE, () -> applicationState.setActiveStartAndEndPointMode());
         uiModule.addEvent(EventName.UNDO, ()-> new UndoCommand().execute());
         uiModule.addEvent(EventName.REDO, ()-> new RedoCommand().execute());
+        uiModule.addEvent(EventName.COPY,() -> new CopyShapeCommand(shapeLst).execute());
     }
 }

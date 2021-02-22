@@ -19,15 +19,18 @@ public class Main {
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
-        IJPaintController controller = new JPaintController(uiModule, appState);
+
 //        controller.setup();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        // ShapeInfo and ShapeLst will be passed throughout the application
         ShapeInfo shapeInfo = new ShapeInfo();
         ShapeList shapeLst = new ShapeList();
+
+        IJPaintController controller = new JPaintController(uiModule, appState,shapeLst);
         paintCanvas.addMouseListener(new PaintMouseHandler(paintCanvas, appState,shapeInfo,shapeLst));
         // For example purposes only; remove all lines below from your final project.
 
