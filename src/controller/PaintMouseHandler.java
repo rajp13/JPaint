@@ -16,6 +16,7 @@ public class PaintMouseHandler extends MouseAdapter {
     private final ShapeList shapeList;
     private ApplicationState appState;
     private ShapeList selectedShapeList;
+    private Point startingPoint;
 
     public PaintMouseHandler(PaintCanvasBase paintCanvasBase, ApplicationState appState,ShapeInfo shapeInfo, ShapeList shapeList) {
         this.paintCanvasBase = paintCanvasBase;
@@ -27,9 +28,8 @@ public class PaintMouseHandler extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        Point startingPoint = new Point(e.getX(),e.getY());
+        startingPoint = new Point(e.getX(),e.getY());
         System.out.println("Starting Point " + startingPoint.toString());
-        shapeInfo.setStartingPoint(startingPoint);
     }
 
     /*
@@ -40,11 +40,14 @@ public class PaintMouseHandler extends MouseAdapter {
     public void mouseReleased(MouseEvent e) {
         // gets the end Points
         Point endPoint = new Point(e.getX(),e.getY());
-        shapeInfo.setEndPoint(endPoint);
         System.out.println("Ending Point " + endPoint.toString());
+        shapeInfo.setStartingPoint(startingPoint);
+        shapeInfo.setEndPoint(endPoint);
         shapeInfo.setApplicationState(appState);
         MouseMode mouseMode = appState.getActiveMouseMode();
         if(mouseMode.equals(MouseMode.DRAW)) {
+            shapeInfo.setStartingPoint(startingPoint);
+            shapeInfo.setEndPoint(endPoint);
             Command createShape = new CreateShapeCommand(paintCanvasBase, appState, shapeInfo, shapeList);
             createShape.execute();
         } else if(mouseMode.equals(MouseMode.SELECT)) {

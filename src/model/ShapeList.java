@@ -58,7 +58,7 @@ public class ShapeList {
         return selectedShapeLst;
     }
 
-    public ArrayList<IShape> getClipboard() {
+    public ArrayList<IShape> getClipboardLst() {
         return clipboard;
     }
 

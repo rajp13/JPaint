@@ -38,6 +38,7 @@ public class ShapeInfo {
         this.endPoint = endPoint;
     }
 
+
     public void setApplicationState(ApplicationState applicationState) {
         this.appState = applicationState;
     }

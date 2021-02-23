@@ -6,4 +6,6 @@ public interface ISubject {
     void removeObserver();
     void notifyObservers();
 
+
+
 }

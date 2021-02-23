@@ -23,12 +23,14 @@ public class CopyShapeCommand implements Command {
     @Override
     public void execute() {
         System.out.println("Copy Button Pressed");
-        clipboard = shapeLst.getClipboard();
+        clipboard = shapeLst.getClipboardLst();
         selectedShapeList = shapeLst.getSelectedShapeLst();
+        clipboard.clear();
         for(IShape shape : selectedShapeList) {
             clipboard.add(shape);
             System.out.println("Added to clipboard " + clipboard.toString());
         }
+
         
 
     }

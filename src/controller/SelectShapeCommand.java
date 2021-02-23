@@ -51,6 +51,7 @@ public class SelectShapeCommand implements Command {
                 System.out.println("No Collision");
             }
         }
+
     }
 
 

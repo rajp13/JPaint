@@ -85,4 +85,20 @@ public class CreateEllipse implements IShape {
         startingPoint = new Point(startingPoint.getX()+deltaX, startingPoint.getY()+deltaY);
         endPoint = new Point(endPoint.getX()+deltaX, endPoint.getY()+deltaY);
     }
+
+    @Override
+    public ShapeInfo getShapeInfo() {
+        return shapeInfo;
+    }
+
+    @Override
+    public Point getShapeStartingPoint() {
+        return startingPoint;
+    }
+
+    @Override
+    public Point getShapeEndingPoint() {
+        return endPoint;
+    }
+
 }
