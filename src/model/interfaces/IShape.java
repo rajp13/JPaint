@@ -14,6 +14,12 @@ public interface IShape {
 
     ShapeInfo getShapeInfo();
 
+    /*
+        These will return the startingPoint and End Point when the shape was drawn
+        (Mouse Mode is on Draw)
+        The compiler is getting confused with the points in SELECT and MOVE mode
+    */
+
     Point getShapeStartingPoint();
 
     Point getShapeEndingPoint();

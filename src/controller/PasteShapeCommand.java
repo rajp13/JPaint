@@ -4,19 +4,17 @@ import model.ShapeFactory;
 import model.ShapeInfo;
 import model.ShapeList;
 import model.interfaces.IShape;
-import view.interfaces.PaintCanvasBase;
 
 import java.util.ArrayList;
 
-public class PasteShapeCommand implements Command {
+public class PasteShapeCommand implements Command, IUndoable {
 
 
     private ShapeList shapeLst;
     private ArrayList<IShape> clipboard;
     private ArrayList<IShape> pasteShape;
-    private ShapeInfo shapeInfo;
-    private PaintCanvasBase paintCanvasBase;
     private ShapeFactory shapeFactory;
+    private IShape copyShape;
 
 //    private Point startingPoint;
 //    private Point endingPoint;
@@ -44,27 +42,38 @@ public class PasteShapeCommand implements Command {
         clipboard = shapeLst.getClipboardLst();
         System.out.println("Clipboard size is " + clipboard.size());
         System.out.println("Paste Array size is " + pasteShape.size());
+        shapeFactory = new ShapeFactory();
         for(IShape shape:clipboard) {
             updatePoints(shape,shape.getShapeInfo());
-            shapeFactory = new ShapeFactory();
-            IShape copyShape = shapeFactory.create(shape.getShapeInfo());
+            copyShape = shapeFactory.create(shape.getShapeInfo());
             shapeLst.addShape(copyShape);
         }
+        CommandHistory.add(this);
     }
 
 
 
     /*
-        modify the shape info passed in
-
+        updatePoints takes in IShape and ShapeInfo and will modify the shapeInfo that is passed in
+        Each IShape shape can return the specific startingPoint and endingPoint when the mouse was on draw mode
+        This will offset it by 50;
      */
     private void updatePoints(IShape shape,ShapeInfo shapeInfo) {
         System.out.println("Updating Points ");
-        Point startingPoint = new Point(shape.getShapeStartingPoint().getX() + 200, shape.getShapeStartingPoint().getY() + 200);
-        Point endingPoint = new Point(shape.getShapeEndingPoint().getX() + 200, shape.getShapeEndingPoint().getY() + 200);
+        Point startingPoint = new Point(shape.getShapeStartingPoint().getX() + 100, shape.getShapeStartingPoint().getY() + 100);
+        Point endingPoint = new Point(shape.getShapeEndingPoint().getX() + 100, shape.getShapeEndingPoint().getY() + 100);
         shapeInfo.setEndPoint(endingPoint);
         shapeInfo.setStartingPoint(startingPoint);
     }
 
 
+    @Override
+    public void undo() {
+        shapeLst.removeShape(copyShape);
+    }
+
+    @Override
+    public void redo() {
+        shapeLst.addShape(copyShape);
+    }
 }

@@ -52,8 +52,6 @@ public class PaintMouseHandler extends MouseAdapter {
             createShape.execute();
         } else if(mouseMode.equals(MouseMode.SELECT)) {
             System.out.println("Mouse mode is on SELECT");
-            //instantiate the selected shape list in the mouse handler
-            //selectedShapeList = new ShapeList();
             Command selectShapeCommand = new SelectShapeCommand(paintCanvasBase,appState,shapeInfo,shapeList);
             selectShapeCommand.execute();
         } else {
