@@ -109,5 +109,10 @@ public class CreateRectangle implements IShape {
         return endPoint;
     }
 
+    @Override
+    public ShapeType getCurrentShapeType() {
+        return ShapeType.RECTANGLE;
+    }
+
 
 }

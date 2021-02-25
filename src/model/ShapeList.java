@@ -11,7 +11,6 @@ public class ShapeList {
     private final ArrayList<IShape> shapeLst;
     private ArrayList<IShape> selectedShapeLst;
     private ArrayList<IShape> clipboard;
-    private int size;
     private PaintCanvasBase paintCanvasBase;
 
     public ShapeList() {
@@ -44,10 +43,6 @@ public class ShapeList {
 
     public void clearSelectShapeList() {
         selectedShapeLst.clear();
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public ArrayList<IShape> getShapeLst() {

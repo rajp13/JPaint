@@ -82,7 +82,6 @@ public class CreateTriangle implements IShape {
     public boolean checkCollisions(Point otherStartingPoint, Point otherEndingPoint) {
         int width = Math.abs(otherStartingPoint.getX() - otherEndingPoint.getY());
         int height = Math.abs(otherStartingPoint.getY() - otherEndingPoint.getY());
-
         if(startingPoint.getX() < otherStartingPoint.getX() + width && startingPoint.getX() + rectWidth > otherStartingPoint.getX() && startingPoint.getY() < otherStartingPoint.getY() + height &&
                 startingPoint.getY() + rectHeight > otherStartingPoint.getY()) {
             return true;
@@ -115,6 +114,11 @@ public class CreateTriangle implements IShape {
     @Override
     public Point getShapeEndingPoint() {
         return endPoint;
+    }
+
+    @Override
+    public ShapeType getCurrentShapeType() {
+        return ShapeType.TRIANGLE;
     }
 
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import model.ShapeDetector;
 import model.ShapeInfo;
 import model.ShapeList;
 import model.interfaces.IShape;
@@ -19,6 +20,7 @@ public class SelectShapeCommand implements Command {
     private ShapeList shapeLst;
     private Point startingPoint;
     private Point endingPoint;
+    private ShapeDetector shapeDetector;
 
     public SelectShapeCommand(PaintCanvasBase paintCanvasBase, ApplicationState appState,ShapeInfo shapeInfo,ShapeList shapeLst) {
         this.paintCanvasBase = paintCanvasBase;
@@ -27,6 +29,7 @@ public class SelectShapeCommand implements Command {
         this.shapeLst = shapeLst;
         startingPoint = shapeInfo.getStartingPoint();
         endingPoint = shapeInfo.getEndPoint();
+        shapeDetector = new ShapeDetector(this.shapeInfo,this.shapeLst);
 
     }
     /*
@@ -43,9 +46,11 @@ public class SelectShapeCommand implements Command {
         // clear out the list
         selectedShapeList.clear();
         for(IShape shape: mainShapeList) {
+            System.out.println(startingPoint.toString() + " " + endingPoint.toString());
             if(shape.checkCollisions(startingPoint,endingPoint)) {
                 System.out.println("Collision " + startingPoint.toString() + " " + endingPoint.toString());
                 shapeLst.addSelectShape(shape);
+                shapeDetector.outlineShape(shape);
                 System.out.println(selectedShapeList.toString());
             } else {
                 System.out.println("No Collision");

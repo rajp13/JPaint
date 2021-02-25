@@ -2,6 +2,7 @@ package model.interfaces;
 
 import controller.Point;
 import model.ShapeInfo;
+import model.ShapeType;
 import view.interfaces.PaintCanvasBase;
 
 public interface IShape {
@@ -24,4 +25,5 @@ public interface IShape {
 
     Point getShapeEndingPoint();
 
+    ShapeType getCurrentShapeType();
 }

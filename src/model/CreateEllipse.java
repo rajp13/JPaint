@@ -101,4 +101,10 @@ public class CreateEllipse implements IShape {
         return endPoint;
     }
 
+
+    @Override
+    public ShapeType getCurrentShapeType() {
+        return ShapeType.ELLIPSE;
+    }
+
 }
