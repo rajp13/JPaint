@@ -17,15 +17,6 @@ public class Point {
         return y;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y= y;
-    }
-
-
     public Point getPoint() {
         return new Point(x,y);
     }
@@ -36,6 +27,6 @@ public class Point {
     }
 
     public String toString(){
-        return this.x + " " + this.y;
+        return this.x + ", " + this.y;
     }
 }

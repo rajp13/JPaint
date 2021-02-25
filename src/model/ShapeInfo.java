@@ -63,7 +63,7 @@ public class ShapeInfo {
     }
 
     public String toString() {
-        return "ShapeInfo:  " + this.startingPoint + " " + this.endPoint + " " + map.toString();
+        return "ShapeInfo:  Starting Point (" +  this.startingPoint + ") (" + this.endPoint + ") ";
     }
 
 

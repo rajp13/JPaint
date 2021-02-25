@@ -24,7 +24,7 @@ public class CreateShapeCommand implements Command, IUndoable {
 
     @Override
     public void execute() {
-        System.out.println("Create Shape " + shapeInfo.toString());
+        System.out.println("Create Shape Command " + shapeInfo.toString());
         ShapeFactory shapeFactory = new ShapeFactory();
         shape = shapeFactory.create(shapeInfo);
         // Add on the shape list

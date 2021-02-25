@@ -75,7 +75,7 @@ public class CreateTriangle implements IShape {
     }
 
     /*
-        https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+        Code taken from https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     */
 
     @Override

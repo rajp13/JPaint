@@ -28,7 +28,10 @@ public class ShapeDetector {
         PaintCanvasBase paintCanvasBase = shapeList.getPaintCanvasBase();
         Graphics2D graphics2d = paintCanvasBase.getGraphics2D();
 
-        // Set the dashed line
+        /*
+            Set the dashed line
+            Code taken from https://docs.oracle.com/javase/tutorial/2d/geometry/strokeandfill.html
+        */
         Stroke dashed = new BasicStroke(0, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL, 0, new float[]{10}, 0);
         graphics2d.setStroke(dashed);
 
