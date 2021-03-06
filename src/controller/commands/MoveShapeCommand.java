@@ -1,5 +1,6 @@
-package controller;
+package controller.commands;
 
+import controller.Point;
 import model.ShapeInfo;
 import model.ShapeList;
 import model.interfaces.IShape;
@@ -35,8 +36,12 @@ public class MoveShapeCommand implements Command, IUndoable {
 
     @Override
     public void execute() {
-        //ArrayList<IShape> selectedShapeList = shapeLst.getSelectedShapeLst();
+        ArrayList<IShape> groupList = shapeLst.getGroupShapesList();
         for(IShape shape: selectedShapeList) {
+            // Check to see if the shapes are in a group, if not a normal move will happen
+            if(groupList.size() > 0) {
+                shape.move(deltaX,deltaY);
+            }
             System.out.println("Moving Shape Now");
             shape.move(deltaX,deltaY);
             activeMoveShape.add(shape);

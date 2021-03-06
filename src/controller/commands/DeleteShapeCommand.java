@@ -1,4 +1,4 @@
-package controller;
+package controller.commands;
 
 import model.ShapeList;
 import model.interfaces.IShape;
@@ -10,7 +10,6 @@ public class DeleteShapeCommand implements Command, IUndoable {
     private ShapeList mainShapeList;
     private ArrayList<IShape> selectedShapeList;
     private ArrayList<IShape> deletedShapesList;
-    private IShape deletedShape;
 
     public DeleteShapeCommand(ShapeList mainShapeList) {
         this.mainShapeList = mainShapeList;

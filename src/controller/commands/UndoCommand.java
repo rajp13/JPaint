@@ -1,4 +1,4 @@
-package controller;
+package controller.commands;
 
 public class UndoCommand implements Command {
 

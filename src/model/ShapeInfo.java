@@ -13,8 +13,12 @@ public class ShapeInfo {
     private ApplicationState appState;
     private ShapeColor primaryColor;
     private ShapeColor secondaryColor;
-    private int width;
-    private int height;
+    /*
+        Group
+     */
+    private Point maxGroupPoint;
+    private Point minGroupPoint;
+
     private EnumMap<ShapeColor,java.awt.Color> map = new EnumMap<>(ShapeColor.class);
 
     public ShapeInfo() {
@@ -85,6 +89,22 @@ public class ShapeInfo {
 
     public EnumMap<ShapeColor,java.awt.Color> getColorMap() {
         return map;
+    }
+
+    public void setMaxGroupPoint(int x,int y) {
+        maxGroupPoint = new Point(x,y);
+    }
+
+    public Point getMaxGroupPoint() {
+        return maxGroupPoint;
+    }
+
+    public void setMinGroupPoint(int x,int y) {
+        minGroupPoint = new Point(x,y);
+    }
+
+    public Point getMinGroupPoint() {
+        return minGroupPoint;
     }
 
 }

@@ -11,12 +11,14 @@ public class ShapeList {
     private final ArrayList<IShape> shapeLst;
     private ArrayList<IShape> selectedShapeLst;
     private ArrayList<IShape> clipboard;
+    private ArrayList<IShape> groupShapes;
     private PaintCanvasBase paintCanvasBase;
 
     public ShapeList() {
         shapeLst = new ArrayList<>();
         selectedShapeLst = new ArrayList<>();
         clipboard = new ArrayList<>();
+        groupShapes = new ArrayList<>();
     }
 
 
@@ -36,15 +38,6 @@ public class ShapeList {
         selectedShapeLst.add(shape);
     }
 
-
-    public void removeSelectShape(IShape shape) {
-        selectedShapeLst.remove(shape);
-    }
-
-    public void clearSelectShapeList() {
-        selectedShapeLst.clear();
-    }
-
     public ArrayList<IShape> getShapeLst() {
         return shapeLst;
     }
@@ -55,6 +48,10 @@ public class ShapeList {
 
     public ArrayList<IShape> getClipboardLst() {
         return clipboard;
+    }
+
+    public ArrayList<IShape> getGroupShapesList() {
+        return groupShapes;
     }
 
     public PaintCanvasBase getPaintCanvasBase() {

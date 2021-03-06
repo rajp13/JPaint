@@ -1,5 +1,6 @@
-package controller;
+package controller.commands;
 
+import controller.Point;
 import model.ShapeDetector;
 import model.ShapeInfo;
 import model.ShapeList;

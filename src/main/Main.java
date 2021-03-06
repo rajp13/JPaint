@@ -30,16 +30,12 @@ public class Main {
         ShapeInfo shapeInfo = new ShapeInfo();
         ShapeList shapeLst = new ShapeList();
 
-        IJPaintController controller = new JPaintController(uiModule, appState,shapeLst);
+        IJPaintController controller = new JPaintController(uiModule, appState,shapeLst,shapeInfo);
         paintCanvas.addMouseListener(new PaintMouseHandler(paintCanvas, appState,shapeInfo,shapeLst));
-        // For example purposes only; remove all lines below from your final project.
-
-
-
-
 
         controller.setup();
 
+        // For example purposes only; remove all lines below from your final project.
         /*
         // Filled in rectangle
         Graphics2D graphics2d = paintCanvas.getGraphics2D();

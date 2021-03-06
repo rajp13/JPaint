@@ -1,5 +1,7 @@
 package controller;
 
+import controller.commands.*;
+import model.ShapeInfo;
 import model.ShapeList;
 import model.interfaces.IApplicationState;
 import view.EventName;
@@ -9,11 +11,13 @@ public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
     private ShapeList shapeLst;
+    private ShapeInfo shapeInfo;
 
-    public JPaintController(IUiModule uiModule, IApplicationState applicationState,ShapeList shapeLst) {
+    public JPaintController(IUiModule uiModule, IApplicationState applicationState, ShapeList shapeLst, ShapeInfo shapeInfo) {
         this.uiModule = uiModule;
         this.applicationState = applicationState;
         this.shapeLst = shapeLst;
+        this.shapeInfo = shapeInfo;
     }
 
     @Override
@@ -32,5 +36,6 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.COPY,() -> new CopyShapeCommand(shapeLst).execute());
         uiModule.addEvent(EventName.PASTE, () -> new PasteShapeCommand(shapeLst).execute());
         uiModule.addEvent(EventName.DELETE, () -> new DeleteShapeCommand(shapeLst).execute());
+        uiModule.addEvent(EventName.GROUP, () -> new GroupShapeCommand(shapeLst,shapeInfo).execute());
     }
 }

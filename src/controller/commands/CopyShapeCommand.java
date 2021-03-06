@@ -1,4 +1,4 @@
-package controller;
+package controller.commands;
 
 import model.ShapeList;
 import model.interfaces.IShape;
@@ -25,8 +25,12 @@ public class CopyShapeCommand implements Command {
         System.out.println("Copy Button Pressed");
         clipboard = shapeLst.getClipboardLst();
         selectedShapeList = shapeLst.getSelectedShapeLst();
+        ArrayList<IShape> groupList = shapeLst.getGroupShapesList();
         clipboard.clear();
         for(IShape shape : selectedShapeList) {
+            if(groupList.size() > 0) {
+                clipboard.add(shape);
+            }
             clipboard.add(shape);
             System.out.println("Added to clipboard " + clipboard.toString());
         }

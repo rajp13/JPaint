@@ -63,4 +63,32 @@ public class ShapeDetector {
         }
     }
 
+    /*
+        Calutue the bottom-most point
+        1.Calculte the right-most point
+        2.Calculte the bottom-most point
+        3.Calculte the top-most point
+     */
+
+    public Point getMaxPoint(IShape shape) {
+        int maxWidth = Math.max(startingPoint.getX(),endPoint.getX());
+        int maxHeight = Math.max(startingPoint.getY(),endPoint.getY());
+        Point maxPoint = new Point(maxWidth,maxHeight);
+        return maxPoint;
+    }
+    public void outlineShapeGroup() {
+
+        PaintCanvasBase paintCanvasBase = shapeList.getPaintCanvasBase();
+        Graphics2D graphics2d = paintCanvasBase.getGraphics2D();
+        Stroke dashed = new BasicStroke(3, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL, 0, new float[]{10}, 0);
+        graphics2d.setStroke(dashed);
+        Point maxPoint = shapeInfo.getMaxGroupPoint();
+        Point minPoint = shapeInfo.getMinGroupPoint();
+        int width = Math.abs(maxPoint.getX()- minPoint.getX());
+        int height = Math.abs(maxPoint.getY()-minPoint.getY());
+
+        graphics2d.drawRect(minPoint.getX()-5, minPoint.getY()-5,width+10,height+10);
+
+    }
+
 }

@@ -1,5 +1,9 @@
 package controller;
 
+import controller.commands.Command;
+import controller.commands.CreateShapeCommand;
+import controller.commands.MoveShapeCommand;
+import controller.commands.SelectShapeCommand;
 import model.MouseMode;
 import model.ShapeInfo;
 import model.ShapeList;
@@ -59,8 +63,4 @@ public class PaintMouseHandler extends MouseAdapter {
             moveShapeCommand.execute();
         }
     }
-
-
-
-
 }
