@@ -22,6 +22,10 @@ public class ShapeDetector {
         this.shapeList = shapeList;
     }
 
+    public ShapeDetector(ShapeList shapeList) {
+        this.shapeList = shapeList;
+    }
+
 
     public void outlineShape(IShape shape) {
         ShapeType shapeType = shape.getCurrentShapeType();
@@ -63,19 +67,6 @@ public class ShapeDetector {
         }
     }
 
-    /*
-        Calutue the bottom-most point
-        1.Calculte the right-most point
-        2.Calculte the bottom-most point
-        3.Calculte the top-most point
-     */
-
-    public Point getMaxPoint(IShape shape) {
-        int maxWidth = Math.max(startingPoint.getX(),endPoint.getX());
-        int maxHeight = Math.max(startingPoint.getY(),endPoint.getY());
-        Point maxPoint = new Point(maxWidth,maxHeight);
-        return maxPoint;
-    }
     public void outlineShapeGroup() {
 
         PaintCanvasBase paintCanvasBase = shapeList.getPaintCanvasBase();

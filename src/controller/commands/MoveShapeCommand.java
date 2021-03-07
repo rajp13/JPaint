@@ -38,9 +38,11 @@ public class MoveShapeCommand implements Command, IUndoable {
     public void execute() {
         ArrayList<IShape> groupList = shapeLst.getGroupShapesList();
         for(IShape shape: selectedShapeList) {
-            // Check to see if the shapes are in a group, if not a normal move will happen
+            // Check to see if the shapes are in a group, if not a default move command will happen
             if(groupList.size() > 0) {
                 shape.move(deltaX,deltaY);
+                activeMoveShape.add(shape);
+                shapeLst.drawAllShapes();
             }
             System.out.println("Moving Shape Now");
             shape.move(deltaX,deltaY);

@@ -54,6 +54,13 @@ public class ShapeList {
         return groupShapes;
     }
 
+    public void drawGroup() {
+        ShapeDetector shapeDetector = new ShapeDetector(this);
+        for(IShape shape: groupShapes) {
+            shapeDetector.outlineShapeGroup();
+        }
+    }
+
     public PaintCanvasBase getPaintCanvasBase() {
         return paintCanvasBase;
     }

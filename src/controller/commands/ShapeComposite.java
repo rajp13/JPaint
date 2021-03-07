@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ShapeComposite {
 
-    ArrayList<IShape> children;
+    private final ArrayList<IShape> children;
 
     public ShapeComposite() {
         children = new ArrayList<>();
@@ -17,10 +17,23 @@ public class ShapeComposite {
         children.add(shape);
     }
 
+    public IShape removeChild(int index) {
+        IShape shapeRemoved;
+        shapeRemoved = this.children.remove(index);
+        return shapeRemoved;
+    }
 
     public ArrayList<IShape> getChildren() {
         return children;
     }
+
+     /*
+        Calculate the bottom-most point
+        1.Calculate the right-most point
+        2.Calculate the bottom-most point
+        3.Calculate the top-most point
+     */
+
 
     public Point getMinPoint() {
         int minX = children.get(0).getShapeStartingPoint().getX();

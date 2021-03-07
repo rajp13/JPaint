@@ -44,16 +44,21 @@ public class SelectShapeCommand implements Command {
     public void execute() {
         selectedShapeList = shapeLst.getSelectedShapeLst();
         mainShapeList = shapeLst.getShapeLst();
+        ArrayList<IShape> groupList = shapeLst.getGroupShapesList();
         // clear out the list
         selectedShapeList.clear();
         for(IShape shape: mainShapeList) {
             System.out.println(startingPoint.toString() + " " + endingPoint.toString());
             if(shape.checkCollisions(startingPoint,endingPoint)) {
+                if(groupList.size()>0) {
+                   selectedShapeList.addAll(groupList);
+                }
                 System.out.println("Collision " + startingPoint.toString() + " " + endingPoint.toString());
                 shapeLst.addSelectShape(shape);
                 shapeDetector.outlineShape(shape);
                 System.out.println(selectedShapeList.toString());
             } else {
+                groupList.clear();
                 System.out.println("No Collision");
             }
         }

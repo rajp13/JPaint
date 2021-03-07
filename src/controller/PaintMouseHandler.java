@@ -19,7 +19,6 @@ public class PaintMouseHandler extends MouseAdapter {
     private ShapeInfo shapeInfo;
     private final ShapeList shapeList;
     private ApplicationState appState;
-    private ShapeList selectedShapeList;
     private Point startingPoint;
     private Point endPoint;
 
