@@ -1,7 +1,7 @@
 package model;
 
 import model.interfaces.IObserver;
-import model.interfaces.IShape;
+import controller.commands.IShape;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;

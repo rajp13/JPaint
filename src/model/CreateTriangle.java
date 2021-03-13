@@ -1,7 +1,7 @@
 package model;
 
 import controller.Point;
-import model.interfaces.IShape;
+import controller.commands.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
@@ -33,7 +33,7 @@ public class CreateTriangle implements IShape {
         endPoint = shapeInfo.getEndPoint();
         appState = shapeInfo.getApplicationState();
         // Lazy Loading saving Cache to colorMap
-        colorMap = shapeInfo.getColorMap();
+        colorMap = ShapeColorSingleton.getInstance().setColorMap();
         activePrimaryColor = appState.getActivePrimaryColor();
         primaryColor = colorMap.get(activePrimaryColor);
         activeSecondaryColor = appState.getActiveSecondaryColor();

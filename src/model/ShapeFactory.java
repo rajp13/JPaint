@@ -1,6 +1,6 @@
 package model;
 
-import model.interfaces.IShape;
+import controller.commands.IShape;
 import model.interfaces.IShapeFactory;
 import model.persistence.ApplicationState;
 

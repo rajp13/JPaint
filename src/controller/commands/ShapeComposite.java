@@ -4,7 +4,6 @@ import controller.Point;
 import model.ShapeInfo;
 import model.ShapeList;
 import model.ShapeType;
-import model.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
 
 import java.util.ArrayList;

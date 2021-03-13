@@ -1,7 +1,6 @@
 package controller.commands;
 
 import model.ShapeList;
-import model.interfaces.IShape;
 
 import java.util.ArrayList;
 

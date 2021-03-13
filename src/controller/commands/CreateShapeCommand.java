@@ -3,7 +3,6 @@ package controller.commands;
 import model.ShapeFactory;
 import model.ShapeInfo;
 import model.ShapeList;
-import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 

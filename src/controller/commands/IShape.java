@@ -1,4 +1,4 @@
-package model.interfaces;
+package controller.commands;
 
 import controller.Point;
 import model.ShapeInfo;

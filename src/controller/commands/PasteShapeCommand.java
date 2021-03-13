@@ -4,7 +4,6 @@ import controller.Point;
 import model.ShapeFactory;
 import model.ShapeInfo;
 import model.ShapeList;
-import model.interfaces.IShape;
 
 import java.util.ArrayList;
 

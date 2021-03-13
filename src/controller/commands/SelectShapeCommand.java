@@ -4,7 +4,6 @@ import controller.Point;
 import model.ShapeDetector;
 import model.ShapeInfo;
 import model.ShapeList;
-import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
