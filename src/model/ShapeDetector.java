@@ -7,7 +7,7 @@ import view.interfaces.PaintCanvasBase;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ShapeDetector {
+public class ShapeDetector  {
 
     private ShapeList shapeList;
     private ShapeInfo shapeInfo;
@@ -67,8 +67,8 @@ public class ShapeDetector {
         }
     }
 
+    //This method is for outline shapes that the user wants to put in a group
     public void outlineShapeGroup() {
-
         PaintCanvasBase paintCanvasBase = shapeList.getPaintCanvasBase();
         Graphics2D graphics2d = paintCanvasBase.getGraphics2D();
         Stroke dashed = new BasicStroke(3, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL, 0, new float[]{10}, 0);
@@ -77,9 +77,7 @@ public class ShapeDetector {
         Point minPoint = shapeInfo.getMinGroupPoint();
         int width = Math.abs(maxPoint.getX()- minPoint.getX());
         int height = Math.abs(maxPoint.getY()-minPoint.getY());
-
         graphics2d.drawRect(minPoint.getX()-5, minPoint.getY()-5,width+10,height+10);
-
     }
 
 }

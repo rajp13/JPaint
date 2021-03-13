@@ -1,7 +1,7 @@
 package model;
 
-import model.interfaces.IShape;
 import controller.Point;
+import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
@@ -23,6 +23,7 @@ public class CreateTriangle implements IShape {
     private int[] yPoints = new int[3];
     private int rectWidth;
     private int rectHeight;
+    private final EnumMap<ShapeColor, Color> colorMap;
 
 
 
@@ -31,7 +32,8 @@ public class CreateTriangle implements IShape {
         startingPoint = shapeInfo.getStartingPoint();
         endPoint = shapeInfo.getEndPoint();
         appState = shapeInfo.getApplicationState();
-        EnumMap<ShapeColor, Color> colorMap = shapeInfo.getColorMap();
+        // Lazy Loading saving Cache to colorMap
+        colorMap = shapeInfo.getColorMap();
         activePrimaryColor = appState.getActivePrimaryColor();
         primaryColor = colorMap.get(activePrimaryColor);
         activeSecondaryColor = appState.getActiveSecondaryColor();

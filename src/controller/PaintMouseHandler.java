@@ -27,6 +27,7 @@ public class PaintMouseHandler extends MouseAdapter {
         this.appState = appState;
         this.shapeInfo = shapeInfo;
         this.shapeList = shapeList;
+        shapeInfo.setPaintCanvasBase(paintCanvasBase);
     }
 
 
@@ -48,6 +49,8 @@ public class PaintMouseHandler extends MouseAdapter {
         shapeInfo.setStartingPoint(startingPoint);
         shapeInfo.setEndPoint(endPoint);
         shapeInfo.setApplicationState(appState);
+
+
         MouseMode mouseMode = appState.getActiveMouseMode();
         if(mouseMode.equals(MouseMode.DRAW)) {
             Command createShape = new CreateShapeCommand(paintCanvasBase, appState, shapeInfo, shapeList);

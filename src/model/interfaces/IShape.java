@@ -26,4 +26,5 @@ public interface IShape {
     Point getShapeEndingPoint();
 
     ShapeType getCurrentShapeType();
+
 }

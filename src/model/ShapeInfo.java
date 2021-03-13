@@ -2,8 +2,8 @@ package model;
 
 import controller.Point;
 import model.persistence.ApplicationState;
+import view.interfaces.PaintCanvasBase;
 
-import java.awt.*;
 import java.util.EnumMap;
 
 public class ShapeInfo {
@@ -13,16 +13,18 @@ public class ShapeInfo {
     private ApplicationState appState;
     private ShapeColor primaryColor;
     private ShapeColor secondaryColor;
+    private PaintCanvasBase paintCanvasBase;
+
     /*
         Group
      */
     private Point maxGroupPoint;
     private Point minGroupPoint;
 
-    private EnumMap<ShapeColor,java.awt.Color> map = new EnumMap<>(ShapeColor.class);
+    private EnumMap<ShapeColor,java.awt.Color> colorMap = new EnumMap<>(ShapeColor.class);
 
     public ShapeInfo() {
-        setColorMap();
+        //setColorMap();
     }
 
 
@@ -70,25 +72,30 @@ public class ShapeInfo {
         return "ShapeInfo:  Starting Point (" +  this.startingPoint + ") (" + this.endPoint + ") ";
     }
 
-
+    /*
     private void setColorMap() {
-        map.put(ShapeColor.BLACK, Color.BLACK);
-        map.put(ShapeColor.BLUE,Color.BLUE);
-        map.put(ShapeColor.CYAN,Color.CYAN);
-        map.put(ShapeColor.DARK_GRAY,Color.DARK_GRAY);
-        map.put(ShapeColor.GRAY,Color.GRAY);
-        map.put(ShapeColor.GREEN,Color.GREEN);
-        map.put(ShapeColor.LIGHT_GRAY,Color.LIGHT_GRAY);
-        map.put(ShapeColor.MAGENTA,Color.MAGENTA);
-        map.put(ShapeColor.ORANGE,Color.ORANGE);
-        map.put(ShapeColor.PINK,Color.PINK);
-        map.put(ShapeColor.RED,Color.RED);
-        map.put(ShapeColor.WHITE,Color.WHITE);
-        map.put(ShapeColor.YELLOW,Color.YELLOW);
+        colorMap.put(ShapeColor.BLACK, Color.BLACK);
+        colorMap.put(ShapeColor.BLUE,Color.BLUE);
+        colorMap.put(ShapeColor.CYAN,Color.CYAN);
+        colorMap.put(ShapeColor.DARK_GRAY,Color.DARK_GRAY);
+        colorMap.put(ShapeColor.GRAY,Color.GRAY);
+        colorMap.put(ShapeColor.GREEN,Color.GREEN);
+        colorMap.put(ShapeColor.LIGHT_GRAY,Color.LIGHT_GRAY);
+        colorMap.put(ShapeColor.MAGENTA,Color.MAGENTA);
+        colorMap.put(ShapeColor.ORANGE,Color.ORANGE);
+        colorMap.put(ShapeColor.PINK,Color.PINK);
+        colorMap.put(ShapeColor.RED,Color.RED);
+        colorMap.put(ShapeColor.WHITE,Color.WHITE);
+        colorMap.put(ShapeColor.YELLOW,Color.YELLOW);
+    }
+    */
+
+    public void setColorMap(EnumMap<ShapeColor,java.awt.Color> colormap) {
+        this.colorMap = colormap;
     }
 
     public EnumMap<ShapeColor,java.awt.Color> getColorMap() {
-        return map;
+        return colorMap;
     }
 
     public void setMaxGroupPoint(int x,int y) {
@@ -105,6 +112,14 @@ public class ShapeInfo {
 
     public Point getMinGroupPoint() {
         return minGroupPoint;
+    }
+
+    public void setPaintCanvasBase(PaintCanvasBase paintCanvasBase) {
+        this.paintCanvasBase = paintCanvasBase;
+    }
+
+    public PaintCanvasBase getPaintCanvasBase() {
+        return paintCanvasBase;
     }
 
 }

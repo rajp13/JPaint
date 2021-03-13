@@ -4,6 +4,7 @@ import controller.Point;
 import model.ShapeInfo;
 import model.ShapeList;
 import model.interfaces.IShape;
+import view.interfaces.PaintCanvasBase;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class MoveShapeCommand implements Command, IUndoable {
     private Point startingPoint;
     private Point endingPoint;
     private ArrayList<IShape> selectedShapeList;
+    //keeps track of the shapes that are moved
     private ArrayList<IShape> activeMoveShape = new ArrayList<>();
 
 
@@ -37,17 +39,24 @@ public class MoveShapeCommand implements Command, IUndoable {
     @Override
     public void execute() {
         ArrayList<IShape> groupList = shapeLst.getGroupShapesList();
+        ShapeComposite shapeComposite = new ShapeComposite(shapeInfo,shapeLst);
+        PaintCanvasBase paintCanvasBase = shapeInfo.getPaintCanvasBase();
+        /*
+            1. Get rid of grouplist and insert
+         */
+        if(!groupList.isEmpty()) {
+            for(IShape shape: groupList) {
+                System.out.println("Move Group");
+                shapeComposite.moveChildren();
+            }
+        }
+
         for(IShape shape: selectedShapeList) {
             // Check to see if the shapes are in a group, if not a default move command will happen
-            if(groupList.size() > 0) {
-                shape.move(deltaX,deltaY);
-                activeMoveShape.add(shape);
-                shapeLst.drawAllShapes();
-            }
             System.out.println("Moving Shape Now");
-            shape.move(deltaX,deltaY);
+            shape.move(deltaX, deltaY);
             activeMoveShape.add(shape);
-            shapeLst.drawAllShapes();
+            shapeLst.addShape(shape);
         }
         CommandHistory.add(this);
     }
@@ -63,7 +72,7 @@ public class MoveShapeCommand implements Command, IUndoable {
         int undoDeltaY = deltaY * -1;
         for(IShape shape: activeMoveShape) {
             shape.move(undoDeltaX,undoDeltaY);
-            shapeLst.drawAllShapes();
+            //shapeLst.drawAllShapes();
         }
     }
 
@@ -71,7 +80,7 @@ public class MoveShapeCommand implements Command, IUndoable {
     public void redo() {
         for(IShape shape: activeMoveShape) {
             shape.move(deltaX,deltaY);
-            shapeLst.drawAllShapes();
+            //shapeLst.drawAllShapes();
         }
     }
 }

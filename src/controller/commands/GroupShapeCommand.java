@@ -5,6 +5,7 @@ import model.ShapeDetector;
 import model.ShapeInfo;
 import model.ShapeList;
 import model.interfaces.IShape;
+import view.interfaces.PaintCanvasBase;
 
 import java.util.ArrayList;
 
@@ -33,40 +34,49 @@ public class GroupShapeCommand implements Command, IUndoable {
         System.out.println("Group Button Pressed");
         ArrayList<IShape> mainShapeList = shapeList.getShapeLst();
         ArrayList<IShape> selectedShapeList = shapeList.getSelectedShapeLst();
-        ArrayList<IShape> groupShapeList = shapeList.getGroupShapesList();
+        ArrayList<IShape> groupList = shapeList.getGroupShapesList();
+        PaintCanvasBase paintCanvasBase = shapeInfo.getPaintCanvasBase();
 
         if(selectedShapeList.isEmpty()) {
             System.out.println("No shapes selected");
+        } else {
+
+
+            shapeDetector = new ShapeDetector(shapeInfo, shapeList);
+            shapeComposite = new ShapeComposite(shapeInfo, shapeList);
+
+            for (IShape shape : selectedShapeList) {
+                //shapeList.removeShape(shape);
+                shapeComposite.addChild(shape);
+                groupList.add(shape);
+                shapeComposite.draw(paintCanvasBase);
+            }
+
+            for(IShape shape: groupList) {
+                shapeList.addShape(shape);
+            }
+
+            System.out.println("Children array length " + shapeComposite.getChildrenArray().size());
+            System.out.println("Main shapeList size " + mainShapeList.size());
+            Point maxGroupPoint = shapeComposite.getMaxPoint();
+            Point minGroupPoint = shapeComposite.getMinPoint();
+            shapeComposite.setMaxPoint(maxGroupPoint);
+            shapeComposite.setMinPoint(minGroupPoint);
+            shapeInfo.setMaxGroupPoint(maxGroupPoint.getX(), maxGroupPoint.getY());
+            shapeInfo.setMinGroupPoint(minGroupPoint.getX(), minGroupPoint.getY());
+            System.out.println("Max Points " + maxGroupPoint.toString());
+            System.out.println("Min Points " + minGroupPoint.toString());
+            shapeDetector.outlineShapeGroup();
+            selectedShapeList.clear();
+            CommandHistory.add(this);
         }
-
-        shapeComposite = new ShapeComposite();
-        shapeDetector = new ShapeDetector(shapeInfo,shapeList);
-
-        for(IShape shape: selectedShapeList) {
-            shapeComposite.addChild(shape);
-            groupShapeList.add(shape);
-            shapeList.drawAllShapes();
-        }
-
-        System.out.println("Children array length " + shapeComposite.getChildren().size());
-        System.out.println("Main shapeList size" + mainShapeList.size());
-        System.out.println("The length of group Shape list is " + groupShapeList.size());
-        Point maxGroupPoint = shapeComposite.getMaxPoint();
-        Point minGroupPoint = shapeComposite.getMinPoint();
-        shapeInfo.setMaxGroupPoint(maxGroupPoint.getX(),maxGroupPoint.getY());
-        shapeInfo.setMinGroupPoint(minGroupPoint.getX(), minGroupPoint.getY());
-        System.out.println("Max Points " + maxGroupPoint.toString());
-        System.out.println("Min Points " + minGroupPoint.toString());
-        shapeDetector.outlineShapeGroup();
-
-        CommandHistory.add(this);
     }
 
     @Override
     public void undo() {
         System.out.println("Undo Group Button Pressed");
         ArrayList<IShape> selectedShapeList = shapeList.getSelectedShapeLst();
-        ArrayList<IShape> childrenArray = shapeComposite.getChildren();
+        ArrayList<IShape> childrenArray = shapeComposite.getChildrenArray();
         ArrayList<IShape> groupShapeList = shapeList.getGroupShapesList();
 
 
@@ -82,14 +92,14 @@ public class GroupShapeCommand implements Command, IUndoable {
             for (IShape shape : selectedShapeList) {
                 shapeComposite.addChild(shape);
                 groupShapeList.add(shape);
-                shapeList.drawAllShapes();
+                //shapeList.drawAllShapes();
             }
 
             Point maxGroupPoint = shapeComposite.getMaxPoint();
             Point minGroupPoint = shapeComposite.getMinPoint();
             shapeInfo.setMaxGroupPoint(maxGroupPoint.getX(), maxGroupPoint.getY());
             shapeInfo.setMinGroupPoint(minGroupPoint.getX(), minGroupPoint.getY());
-            shapeDetector.outlineShapeGroup();
+
         }
     }
 
@@ -104,7 +114,6 @@ public class GroupShapeCommand implements Command, IUndoable {
             for (IShape shape : selectedShapeList) {
                 shapeComposite.addChild(shape);
                 groupShapeList.add(shape);
-                shapeList.drawAllShapes();
                 deletedChild.remove(shape);
             }
             Point maxGroupPoint = shapeComposite.getMaxPoint();

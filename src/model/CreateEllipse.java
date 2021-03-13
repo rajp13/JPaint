@@ -1,7 +1,7 @@
 package model;
 
-import model.interfaces.IShape;
 import controller.Point;
+import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
@@ -19,7 +19,7 @@ public class CreateEllipse implements IShape {
     private ShapeColor activeSecondaryColor;
     private Color secondaryColor;
     private ShapeShadingType shapeShadingType;
-    private EnumMap<ShapeColor, Color> map;
+    private final EnumMap<ShapeColor, Color> colorMap;
     private int ellipseWidth;
     private int ellipseHeight;
 
@@ -30,11 +30,12 @@ public class CreateEllipse implements IShape {
         endPoint = shapeInfo.getEndPoint();
         appState = shapeInfo.getApplicationState();
         activePrimaryColor = appState.getActivePrimaryColor();
-        map = shapeInfo.getColorMap();
+        // Lazy Loading saving Cache to map
+        colorMap = ShapeColorSingleton.getInstance().setColorMap();
         activePrimaryColor = appState.getActivePrimaryColor();
-        primaryColor = map.get(activePrimaryColor);
+        primaryColor = colorMap.get(activePrimaryColor);
         activeSecondaryColor = appState.getActiveSecondaryColor();
-        secondaryColor = map.get(activeSecondaryColor);
+        secondaryColor = colorMap.get(activeSecondaryColor);
         shapeShadingType = appState.getActiveShapeShadingType();
         ellipseWidth = Math.abs(startingPoint.getX() - endPoint.getX());
         ellipseHeight = Math.abs(startingPoint.getY() - endPoint.getY());
@@ -106,5 +107,7 @@ public class CreateEllipse implements IShape {
     public ShapeType getCurrentShapeType() {
         return ShapeType.ELLIPSE;
     }
+
+
 
 }

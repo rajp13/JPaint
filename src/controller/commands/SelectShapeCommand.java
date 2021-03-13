@@ -50,15 +50,14 @@ public class SelectShapeCommand implements Command {
         for(IShape shape: mainShapeList) {
             System.out.println(startingPoint.toString() + " " + endingPoint.toString());
             if(shape.checkCollisions(startingPoint,endingPoint)) {
-                if(groupList.size()>0) {
-                   selectedShapeList.addAll(groupList);
+                if(groupList.size()>0 && groupList.contains(shape)) {
+                    selectedShapeList.addAll(groupList);
                 }
                 System.out.println("Collision " + startingPoint.toString() + " " + endingPoint.toString());
                 shapeLst.addSelectShape(shape);
                 shapeDetector.outlineShape(shape);
                 System.out.println(selectedShapeList.toString());
             } else {
-                groupList.clear();
                 System.out.println("No Collision");
             }
         }

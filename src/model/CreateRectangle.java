@@ -1,7 +1,7 @@
 package model;
 
-import model.interfaces.IShape;
 import controller.Point;
+import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
@@ -19,7 +19,7 @@ public class CreateRectangle implements IShape {
     private ShapeColor activeSecondaryColor;
     private Color secondaryColor;
     private ShapeShadingType shapeShadingType;
-    private EnumMap<ShapeColor, Color> map;
+    private EnumMap<ShapeColor, Color> colorMap;
     private int rectWidth;
     private int rectHeight;
 
@@ -29,11 +29,12 @@ public class CreateRectangle implements IShape {
         startingPoint = shapeInfo.getStartingPoint();
         endPoint = shapeInfo.getEndPoint();
         appState = shapeInfo.getApplicationState();
-        map = shapeInfo.getColorMap();
+        // Lazy Loading saving Cache to map
+        colorMap = ShapeColorSingleton.getInstance().setColorMap();
         activePrimaryColor = appState.getActivePrimaryColor();
-        primaryColor = map.get(activePrimaryColor);
+        primaryColor = colorMap.get(activePrimaryColor);
         activeSecondaryColor = appState.getActiveSecondaryColor();
-        secondaryColor = map.get(activeSecondaryColor);
+        secondaryColor = colorMap.get(activeSecondaryColor);
         shapeShadingType = appState.getActiveShapeShadingType();
         rectWidth = Math.abs(startingPoint.getX() - endPoint.getX());
         rectHeight = Math.abs(startingPoint.getY() - endPoint.getY());
@@ -113,6 +114,7 @@ public class CreateRectangle implements IShape {
     public ShapeType getCurrentShapeType() {
         return ShapeType.RECTANGLE;
     }
+
 
 
 }
