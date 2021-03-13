@@ -3,6 +3,9 @@ package model;
 import controller.commands.IShape;
 import model.interfaces.IShapeFactory;
 import model.persistence.ApplicationState;
+import view.CreateEllipse;
+import view.CreateRectangle;
+import view.CreateTriangle;
 
 public class ShapeFactory implements IShapeFactory {
 

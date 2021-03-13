@@ -1,9 +1,7 @@
-package controller.commands;
+package model;
 
 import controller.Point;
-import model.ShapeInfo;
-import model.ShapeList;
-import model.ShapeType;
+import controller.commands.IShape;
 import view.interfaces.PaintCanvasBase;
 
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
 package controller.commands;
 
 import controller.Point;
+import model.ShapeComposite;
 import model.ShapeInfo;
 import model.ShapeList;
 import view.interfaces.PaintCanvasBase;

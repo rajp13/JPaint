@@ -1,14 +1,15 @@
-package model;
+package view;
 
 import controller.Point;
 import controller.commands.IShape;
+import model.*;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 import java.util.EnumMap;
 
-public class CreateEllipse implements IShape {
+public class CreateRectangle implements IShape {
 
     private ShapeInfo shapeInfo;
     private Point startingPoint;
@@ -19,17 +20,16 @@ public class CreateEllipse implements IShape {
     private ShapeColor activeSecondaryColor;
     private Color secondaryColor;
     private ShapeShadingType shapeShadingType;
-    private final EnumMap<ShapeColor, Color> colorMap;
-    private int ellipseWidth;
-    private int ellipseHeight;
+    private EnumMap<ShapeColor, Color> colorMap;
+    private int rectWidth;
+    private int rectHeight;
 
 
-    public CreateEllipse(ShapeInfo shapeInfo) {
+    public CreateRectangle(ShapeInfo shapeInfo) {
         this.shapeInfo = shapeInfo;
         startingPoint = shapeInfo.getStartingPoint();
         endPoint = shapeInfo.getEndPoint();
         appState = shapeInfo.getApplicationState();
-        activePrimaryColor = appState.getActivePrimaryColor();
         // Lazy Loading saving Cache to map
         colorMap = ShapeColorSingleton.getInstance().setColorMap();
         activePrimaryColor = appState.getActivePrimaryColor();
@@ -37,45 +37,54 @@ public class CreateEllipse implements IShape {
         activeSecondaryColor = appState.getActiveSecondaryColor();
         secondaryColor = colorMap.get(activeSecondaryColor);
         shapeShadingType = appState.getActiveShapeShadingType();
-        ellipseWidth = Math.abs(startingPoint.getX() - endPoint.getX());
-        ellipseHeight = Math.abs(startingPoint.getY() - endPoint.getY());
+        rectWidth = Math.abs(startingPoint.getX() - endPoint.getX());
+        rectHeight = Math.abs(startingPoint.getY() - endPoint.getY());
     }
-
 
 
     @Override
-    public void draw(PaintCanvasBase paintCanvas) {
-        System.out.println("Drawing an Ellipse now");
-        Graphics2D graphics2d = paintCanvas.getGraphics2D();
-        graphics2d.setColor(primaryColor);
+    public void draw(PaintCanvasBase paintCanvasBase) {
+        System.out.println("Drawing a Rectangle now");
         int height = Math.abs(startingPoint.getY() - endPoint.getY());
         int width = Math.abs(startingPoint.getX() - endPoint.getX());
+        Graphics2D graphics2d = paintCanvasBase.getGraphics2D();
+        graphics2d.setColor(primaryColor);
         if(shapeShadingType.equals(ShapeShadingType.FILLED_IN)) {
-            System.out.println("Drawing Filled Ellipse");
-            graphics2d.fillOval(startingPoint.getX(), startingPoint.getY(), width, height);
+            System.out.println("Drawing Filled Rectangle");
+            graphics2d.fillRect(startingPoint.getX(), startingPoint.getY(), width, height);
         } else if (shapeShadingType.equals(ShapeShadingType.OUTLINE)) {
-            System.out.println("Drawing Outlined Ellipse");
+            System.out.println("Drawing Outlined Rectangle");
+            // sets the stroke tot 5 to allow the user to see a better outline of the shape
             graphics2d.setStroke(new BasicStroke(5));
-            graphics2d.drawOval(startingPoint.getX(),startingPoint.getY(),width,height);
+            graphics2d.drawRect(startingPoint.getX(),startingPoint.getY(),width,height);
         } else {
-            System.out.println("Drawing Outline and Filled in Ellipse");
-            graphics2d.fillOval(startingPoint.getX(), startingPoint.getY(), width, height);
+            System.out.println("Drawing OUTLINE_AND_FILLED_IN Rectangle");
+            graphics2d.fillRect(startingPoint.getX(), startingPoint.getY(), width, height);
             graphics2d.setStroke(new BasicStroke(5));
+            // Only need the secondaryColor if the user is drawing OUTLINE_AND_FILLED_IN Shape
             graphics2d.setColor(secondaryColor);
-            graphics2d.drawOval(startingPoint.getX(), startingPoint.getY(), width, height);
+            graphics2d.drawRect(startingPoint.getX(), startingPoint.getY(), width, height);
         }
     }
-
     /*
-        Code taken from https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-    */
-
+            https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+		   if (rect1.x < rect2.x + rect2.width &&
+               rect1.x + rect1.width > rect2.x &&
+               rect1.y < rect2.y + rect2.height &&
+               rect1.y + rect1.height > rect2.y) {
+                // collision detected!
+                rect1.x < rect2.x + rect2.width &&
+                rect1.x + rect1.width > rect2.x &&
+                 rect1.y < rect2.y + rect2.height &&
+                  rect1.y + rect1.height > rect2.y
+            }
+     */
     @Override
     public boolean checkCollisions(Point otherStartingPoint, Point otherEndingPoint) {
         int width = Math.abs(otherStartingPoint.getX() - otherEndingPoint.getY());
         int height = Math.abs(otherStartingPoint.getY() - otherEndingPoint.getY());
-        if(startingPoint.getX() < otherStartingPoint.getX() + width && startingPoint.getX() + ellipseWidth > otherStartingPoint.getX() && startingPoint.getY() < otherStartingPoint.getY() + height &&
-                startingPoint.getY() + ellipseHeight > otherStartingPoint.getY()) {
+        if(startingPoint.getX() < otherStartingPoint.getX() + width && (startingPoint.getX() + rectWidth > otherStartingPoint.getX()) && startingPoint.getY() < otherStartingPoint.getY() + height &&
+        startingPoint.getY() + rectHeight > otherStartingPoint.getY()) {
             return true;
         }
         return false;
@@ -102,10 +111,9 @@ public class CreateEllipse implements IShape {
         return endPoint;
     }
 
-
     @Override
     public ShapeType getCurrentShapeType() {
-        return ShapeType.ELLIPSE;
+        return ShapeType.RECTANGLE;
     }
 
 

@@ -1,7 +1,8 @@
-package model;
+package view;
 
 import controller.Point;
 import controller.commands.IShape;
+import model.*;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
 
