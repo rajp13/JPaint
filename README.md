@@ -12,4 +12,4 @@ The features include:
 * Delete Selected Shape
 * Redo/Undo Last Action
 * Select Shapes
-* Group/Ungroup Shapes 
+* Group/Ungroup Shapes
